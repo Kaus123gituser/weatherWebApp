@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="./sass/main.css">
+</head>
+<body>
+    {{>header}}
+ <div class="container-fluid main_header">
+      <div class="row">
+        <div class="col-md-10 col-12 mx-auto">
+          <div class="row  body">
+            {{!-- right side div --}}
+             <div class="col-md-6  col-12  main_header_right1" id="cont2">
+             <figure>
+                <img src="images/R.jpg" alt="KAustubh" class="img-fluid" title="KAsutubh tech">
+             </figure>
+            </div> 
+            <div class="col-md-6  col-12   main_header_left1" id="cont1">
+              <p>Welcome to Kasutubh Technical Web App</p>
+              <h3>I am A MERN  <span style="color: blue;">Stack Developer</span> And work as a Free-lancer</h3>
+              <a href="/weather"><button id="btn">Check Now</button></a>
+            </div>
+            {{!-- left side div --}}
+           
+          </div>
+        </div>
+      </div>
+    </div>    {{>footer}}
+</body>
+</html>

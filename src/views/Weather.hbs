@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="./sass/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    {{>header}}
+    <div class="container-fluid  main_header1">
+        <div class="row">
+            <div class="col-md-10 col-12 mx-auto">
+                <div class="main_content">
+                    <form action="" class="temp_form">
+                        <input type="text" placeholder="Enter the City Name" id="cityName" autocomplete="off"
+                            name="cityval" name="cityName">
+                        <input type="submit" value="search" id="submit">
+                    </form>
+                </div>
+                <div class="tempinfo">
+                    <div class="top_layer">
+                        <p id="day">Tusesday</p>
+                        <p id="today_date"></p>
+                    </div>
+                    <div class="main_layer">
+                        <p id="city_name">Get Output here</p>
+                        <div class="middle_layer  data_hide">
+                            <p id="temp"><span>0</span> <sup>o</sup>C</p>
+                            <p id="temp_status"><i class="fa fa-cloud"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- {{>footer code will come here}} --}}
+
+    {{>footer}}
+    {{!--
+    <script src="../weather.js"></script> --}}
+    {{!--
+    <script src="../weather.js"></script> --}}
+    <script>
+        console.log('Weather App in js');
+        const date1 = new Date();
+        console.log(date1.getFullYear());
+        console.log(date1.getDay());
+        let arr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', "Saturday"];
+        console.log(arr[date1.getDay()]);
+        const day = document.getElementById('day');
+        day.innerHTML = arr[date1.getDay()];
+        console.log(date1);
+        const date = document.getElementById('today_date');
+        date.innerHTML = date1.toLocaleDateString();
+        const btn = document.getElementById('submit');
+        const cityName = document.getElementById('cityName');
+        const city_name = document.getElementById('city_name');
+        const temp = document.getElementById('temp');
+        const temp_status = document.getElementById('temp_status');
+        const weather = async (event) => {
+            event.preventDefault();
+            const cityval = cityName.value;
+            if (cityval === "") {
+                city_name.innerText = ` Plaz write the name Before THe Search `;
+            }
+            else {
+
+                try {
+
+                    let url = `http://api.openweathermap.org/data/2.5/weather?q=${cityval},india&APPID=75fc871b51422177120e042ebde27e25`;
+
+                    const response = await fetch(url);
+                    console.log(response.js);
+                    const data = await response.json();
+                    console.log(data);
+                    const arr = [data];
+                    temp.innerText = (arr[0].main.temp - 273).toFixed(2);
+                    const temp_mood = arr[0].weather[0].main;
+                    console.log(temp_mood);
+                    //                temp_status.innerText=arr[0].weather[0].main;
+                    city_name.innerText = `${arr[0].name} ${arr[0].sys.country}`;
+                    cityName.value="";
+                    if (temp_mood === 'Clouds') {
+                        temp_status.innerHTML = "<i class='fa fa-cloud' style='color:#f1f2f6 '></i>"
+                    }
+                    else if (temp_mood === 'Rain') {
+                        temp_status.innerHTML = "<i class='fa fa-cloud-rain'></i>"
+                    
+                    }
+                    else if (temp_mood === 'Clear') {
+                        temp_status.innerHTML = "<i class='fa fa-sun' style='color:#f1f2f6 '></i>"
+
+                    }
+                    else if (temp_mood === 'Mist') {
+                        temp_status.innerHTML = "<i class='fa fa-cloud-Mist' style='color:#f1f2f6 '></i>"
+
+                    }
+
+                }
+                catch {
+                    city_name.innerText = ` Plaz enter the city name proper `;
+
+                }
+
+            }
+
+
+        }
+        cityName.value= "";      
+        btn.addEventListener('click', weather);
+        </script>
+</body>
+
+</html>
